@@ -53,9 +53,7 @@ def parse_file(path):
     return result
 
 def main():
-
-    for path in sorted(Path(".").glob("*.txt")):
-        print(dumps(parse_file(path), indent=2))
+    print(dumps(parse_file("parser_input_a.txt"), indent=2))
 
 if __name__ == "__main__":
     main()
