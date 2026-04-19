@@ -34,9 +34,21 @@ def parse_adapter(lines):
 def parse_file(path):
     adapters = []
 
+    result = {
+        "file_name": "ipconfig.log"
+    }
+
     data = Path(path).read_text(encoding="utf-16 le")
     
-    parts = data.split("\n\n")[1:]
+    parts = data.split("\n\n")
+
+    if (parts[1][0] == " "):
+        for line in parts[1].splitlines():
+            config_data = parse_property(line)
+            result[config_data[0]] = config_data[1]
+        parts = parts[2:]
+    else:
+        parts = parts[1:]
 
     new_parts = []
     for i in range(0, len(parts) - 1, 2):
@@ -45,15 +57,16 @@ def parse_file(path):
     for part in new_parts:
         adapters.append(parse_adapter(part.strip().split("\n")))
 
-    result = {
-        "file_name": "ipconfig.log",
-        "adapters": adapters
-    }
+    result["adapters"] = adapters
 
     return result
 
 def main():
-    print(dumps([parse_file("parser_input_a.txt")], indent=2))
+
+    results = []
+    for path in sorted(Path(".").glob("*.txt")):
+        results.append(parse_file(path))
+    print(dumps(results, indent=2))
 
 if __name__ == "__main__":
     main()
