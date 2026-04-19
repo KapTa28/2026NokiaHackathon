@@ -16,15 +16,6 @@ def log_error(message):
     with open(ERROR_PATH, "a") as f:
         f.write(message + "\n")
 
-def get_timespan_string(start, end):
-    timespan: timedelta = end - start
-    total_minutes = calculate_total_minutes(timespan)
-
-    if (total_minutes < 60):
-        return f"{total_minutes} perc"
-    
-    return f"{int(total_minutes / 60)} óra"
-
 def calculate_total_minutes(timespan: timedelta):
     return int(timespan.total_seconds() / 60) + 1 
 
@@ -70,7 +61,7 @@ def main():
             start = parse_datetime(parts[1])
             end = parse_datetime(parts[2])
             fee = calculate_parking_fee(start, end)
-            print(f"{get_timespan_string(start, end)} parkolás -> {fee} forint")
+            print(fee)
             write_to_file(f"{parts[0]}: {fee} forint")
         except BaseException as e:
             log_error(f"{parts[0]}: {e}")
