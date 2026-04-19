@@ -62,11 +62,16 @@ def parse_file(path):
     return result
 
 def main():
-
     results = []
     for path in sorted(Path(".").glob("*.txt")):
         results.append(parse_file(path))
-    print(dumps(results, indent=2))
+
+    json = dumps(results, indent=2, ensure_ascii=False)
+
+    print(json)
+
+    with open("result.json", "w", encoding="utf-8") as f:
+        f.write(json)
 
 if __name__ == "__main__":
     main()
