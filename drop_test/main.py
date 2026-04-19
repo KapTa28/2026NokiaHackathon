@@ -8,8 +8,8 @@ def max_num_of_drops(object_count, height):
     min_drop_count = height
     while (part_count < min_drop_count):
         min_drop_count = min(min_drop_count, 
-                             ceil(part_count / 2) + max_num_of_drops(object_count - 1, 
-                                                                     int(height / part_count)))
+                             int(part_count * (object_count - 1) / object_count) + max_num_of_drops(object_count - 1, 
+                                                                     ceil(height / part_count)))
         part_count += 1
     return int(min_drop_count)
 
