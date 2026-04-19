@@ -27,7 +27,6 @@ def main():
         parts = line.split(", ")
         print(max_num_of_drops(int(parts[0]), 
                                int(parts[1])))
-    # print(max_num_of_drops(2, 30))
 
 if __name__ == "__main__":
     main()
