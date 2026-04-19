@@ -61,8 +61,8 @@ def main():
             start = parse_datetime(parts[1])
             end = parse_datetime(parts[2])
             fee = calculate_parking_fee(start, end)
-            print(fee)
-            write_to_file(f"{parts[0]}: {fee} forint")
+            print(f"{parts[0]}: {fee} forint")
+            write_to_file(f"{fee} forint")
         except BaseException as e:
             log_error(f"{parts[0]}: {e}")
 
